@@ -72,7 +72,7 @@ class Professor{
     public function criar(){
         try {
             $this->conn = new Conectar();
-            $sql = $this->conn->prepare("INSERT into professor values (null, ?, ?, ?, ?, ?, ?, ?)");
+            $sql = $this->conn->prepare("INSERT into professor values (?, ?, ?, ?, null, ?, ?, ?)");
             @$sql->bindParam(1, $this->getNomeProf(), PDO::PARAM_STR);
             @$sql->bindParam(2, $this->getCpfProf(), PDO::PARAM_STR);
             @$sql->bindParam(3, $this->getDataNasctProf(), PDO::PARAM_STR);
