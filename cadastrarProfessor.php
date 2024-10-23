@@ -6,55 +6,108 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Professor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        fieldset {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        legend {
+            font-weight: bold;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        button {
+            margin-top: 20px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 
 <body>
     <?php
     session_start();
 
+    // Redireciona se o usuário não estiver logado
     if (!isset($_SESSION['usuario'])) {
         header("Location: index.php");
         exit();
     }
     ?>
+
     <form name="cliente" method="POST" action="">
-
         <fieldset id="a">
-            <legend><b>Dados do Professor</b></legend>
-            <p>Nome: <input name="txtnome" type="text" size="40" maxlength="40" placeholder="Nome do Professor"></p>
-            <p>Cpf: <input name="txtcpf" type="text" size="10" placeholder="Cpf do Professor"></p>
-            <p>Data de Nascimento: <input name="txtdatanasc" type="date" size="40" maxlength="40" placeholder="Data de Nascimento"></p>
-            <p>Endereço: <input name="txtendereco" type="text" size="10" placeholder="Endereço do Professor"></p>
-            <p>Cep: <input name="txtcep" type="text" size="40" maxlength="40" placeholder="Cep do Professor"></p>
-            <p>Telefone: <input name="txttelefone" type="text" size="10" placeholder="Telefone do Professor"></p>
-            <p>Email: <input name="txtemail" type="text" size="40" maxlength="40" placeholder="Email do Professor"></p>
+            <legend>Dados do Professor</legend>
+            <div class="form-grid">
+                <p>
+                    Nome: <input name="txtnome" type="text" maxlength="40" placeholder="Nome do Professor" required>
+                </p>
+                <p>
+                    Cpf: <input name="txtcpf" type="text" placeholder="Cpf do Professor" required>
+                </p>
+                <p>
+                    Data de Nascimento: <input name="txtdatanasc" type="date" required>
+                </p>
+                <p>
+                    Endereço: <input name="txtendereco" type="text" placeholder="Endereço do Professor" required>
+                </p>
+                <p>
+                    Cep: <input name="txtcep" type="text" placeholder="Cep do Professor" required>
+                </p>
+                <p>
+                    Telefone: <input name="txttelefone" type="text" placeholder="Telefone do Professor" required>
+                </p>
+                <p>
+                    Email: <input name="txtemail" type="email" maxlength="40" placeholder="Email do Professor" required>
+                </p>
+            </div>
         </fieldset>
-        <br>
-        <fieldset id="b">
-            <legend><b>Opções</b></legend>
-            <br>
-            <input name="btnenviar" type="submit" value="Cadastrar">
-            <input name="limpar" type="submit" value="Limpar">
 
+        <fieldset id="b">
+            <legend>Opções</legend>
+            <input name="btnenviar" type="submit" value="Cadastrar">
+            <input name="limpar" type="reset" value="Limpar">
         </fieldset>
     </form>
 
     <?php
-    extract($_POST, EXTR_OVERWRITE);
-    if (isset($btnenviar)) {
+    // Processa a submissão do formulário
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btnenviar'])) {
         include_once 'Professor.php';
         $p = new Professor();
-        $p->setNomeProf($txtnome);
-        $p->setCpfProf($txtcpf);
-        $p->setDataNascProf($txtdatanasc);
-        $p->setEnderecoProf($txtendereco);
-        $p->setCepProf($txtcep);
-        $p->setTelefoneProf($txttelefone);
-        $p->setEmailProf($txtemail);
-        echo "<h3><br><br>" . $p->criar() . "</h3>";
+        $p->setNomeProf($_POST['txtnome']);
+        $p->setCpfProf($_POST['txtcpf']);
+        $p->setDataNascProf($_POST['txtdatanasc']);
+        $p->setEnderecoProf($_POST['txtendereco']);
+        $p->setCepProf($_POST['txtcep']);
+        $p->setTelefoneProf($_POST['txttelefone']);
+        $p->setEmailProf($_POST['txtemail']);
+        echo "<h3>" . $p->criar() . "</h3>";
     }
     ?>
-    <br>
+
     <center>
         <button><a href="menu.html">Voltar</a></button>
     </center>
