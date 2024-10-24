@@ -106,6 +106,21 @@ class Professor{
         }
     }
 
+    //consultar autores
+    public function consultar()
+    {
+        try {
+            $this->conn = new Conectar();
+            $sql = $this->conn->prepare("SELECT * from professor where Nome_Prof like ?");
+            @$sql->bindParam(1, $this->getNomeProf(), PDO::PARAM_STR);
+            $sql->execute();
+            return $sql->fetchAll();
+            $this->conn = null;
+        } catch (PDOException $exc) {
+            echo "Erro ao executar consulta. " . $exc->getMessage();
+        }
+    }
+
     //excluir professor
     public function excluir()
     {
