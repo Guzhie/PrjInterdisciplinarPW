@@ -91,6 +91,21 @@ class Professor{
         }
     }
 
+    //listar professores
+    public function listar()
+    {
+        try {
+            $this->conn = Conectar::getInstance();
+            $sql = $this->conn->query("SELECT * FROM professor ORDER BY Id_Prof");
+            $sql->execute();
+            $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+            $this->conn = null; // Fechar conexão
+            return $result;
+        } catch (PDOException $exc) {
+            echo "Erro ao executar consulta: " . $exc->getMessage();
+        }
+    }
+
     //excluir professor
     public function excluir()
     {

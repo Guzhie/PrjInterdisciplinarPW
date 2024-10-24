@@ -84,10 +84,10 @@
         <div class="clearfix">
             <div class="left-buttons">
                 <a href="cadastrarProfessor.php" class="button">Cadastrar Professor</a>
-                <a href="ListarProfessor.php" class="button">Listar Professor</a>
+                <a href="listarProfessor.php" class="button">Listar Professor</a>
             </div>
             <div class="right-button">
-                <a href="menu.php" class="button">Voltar ao Início</a>
+                <a href="menu.php" class="button">Voltar</a>
             </div>
         </div>
     </div>
