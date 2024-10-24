@@ -106,7 +106,7 @@ class Professor{
         }
     }
 
-    //consultar autores
+    //consultar Professores
     public function consultar()
     {
         try {
@@ -118,6 +118,47 @@ class Professor{
             $this->conn = null;
         } catch (PDOException $exc) {
             echo "Erro ao executar consulta. " . $exc->getMessage();
+        }
+    }
+
+    //alterar
+    public function alterar()
+    {
+        if (!$this->vericacaoProfessor()) {
+            echo "Erro: não existe um Professor com esse codigo";
+        }
+        try {
+            $this->conn = new Conectar();
+            $sql = $this->conn->prepare("SELECT * from professor where Id_Prof  = ?");
+            @$sql->bindParam(1, $this->getIdProf(), PDO::PARAM_STR);
+            $sql->execute();
+            return $sql->fetchAll();
+            $this->conn = null;
+        } catch (PDOException $exc) {
+            echo "Erro ao alterar: " . $exc->getMessage();
+        }
+    }
+
+    //alterar2
+    public function alterar2()
+    {
+        try {
+            $this->conn = new Conectar();
+            $sql = $this->conn->prepare("UPDATE professor set Nome_Prof = ?, DataNasc_Prof = ?, cep_prof = ?, endereco_prof = ?, cpf_Prof = ?, email_prof = ?, telefone_Prof = ? where Id_Prof  = ?");
+            @$sql->bindParam(1, $this->getNomeProf(), PDO::PARAM_STR);
+            @$sql->bindParam(2, $this->getDataNasctProf(), PDO::PARAM_STR);
+            @$sql->bindParam(3, $this->getCepProf(), PDO::PARAM_STR);
+            @$sql->bindParam(4, $this->getEnderecoProf(), PDO::PARAM_STR);
+            @$sql->bindParam(5, $this->getCpfProf(), PDO::PARAM_STR);
+            @$sql->bindParam(6, $this->getEmailProf(), PDO::PARAM_STR);
+            @$sql->bindParam(7, $this->getTelefoneProf(), PDO::PARAM_STR);
+            @$sql->bindParam(8, $this->getIdProf(), PDO::PARAM_STR);
+            if ($sql->execute()) {
+                return "Registro alterado com sucesso!";
+            }
+            $this->conn = null;
+        } catch (PDOException $exc) {
+            echo "Erro ao salvar o registro: " . $exc->getMessage();
         }
     }
 
@@ -138,6 +179,21 @@ class Professor{
         }
     }
 
+    //verificação professor
+    public function vericacaoProfessor()
+    {
+        try {
+            $this->conn = new Conectar();
+            $sql = $this->conn->prepare("SELECT * from professor where Id_Prof = ?");
+            $sql->bindValue(1, $this->getIdProf(), PDO::PARAM_INT);
+            $sql->execute();
+            $result = $sql->fetchColumn();
+            return $result > 0;
+        } catch (PDOException $exc) {
+            echo "Erro no código do seu Professor:" . $exc->getMessage();
+        }
+    }
 }
+
 
 ?>

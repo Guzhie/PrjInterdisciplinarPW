@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03-Out-2024 às 19:52
+-- Tempo de geração: 24-Out-2024 às 19:40
 -- Versão do servidor: 10.4.22-MariaDB
 -- versão do PHP: 8.0.13
 
@@ -21,14 +21,13 @@ SET time_zone = "+00:00";
 -- Banco de dados: `bancosql`
 --
 
+CREATE DATABASE `bancosql`;
+USE `bancosql`;
 -- --------------------------------------------------------
 
 --
 -- Estrutura da tabela `acesso`
-
 --
-create database `bancosql`;
-use `bancosql`;
 
 CREATE TABLE `acesso` (
   `usuario` varchar(15) NOT NULL,
@@ -137,7 +136,7 @@ INSERT INTO `instrumento` (`nome_Instrumento`, `Dif_instrumento`, `cod_Instrumet
 
 CREATE TABLE `professor` (
   `Nome_Prof` varchar(150) NOT NULL,
-  `DataNasc_Prof` varchar(10) NOT NULL,
+  `DataNasc_Prof` date NOT NULL,
   `cep_prof` varchar(10) NOT NULL,
   `endereco_prof` varchar(40) NOT NULL,
   `Id_Prof` int(11) NOT NULL,
@@ -151,8 +150,7 @@ CREATE TABLE `professor` (
 --
 
 INSERT INTO `professor` (`Nome_Prof`, `DataNasc_Prof`, `cep_prof`, `endereco_prof`, `Id_Prof`, `cpf_Prof`, `email_prof`, `telefone_Prof`) VALUES
-('Edna Pittner', '23/05/1950', '12345-888', 'rua capivara dos santos', 1, '567487458-67', 'edinaPittner@gmail.com', '(11)91256-7922'),
-('Clayton pinheiro', '21/02/1990', '46656-555', 'rua catinga palmas', 2, '923548052-33', 'PinheiroClayton@gmail.com', '(11)93501-5625');
+('Edna Pittner', '2024-10-01', '12345-888', 'rua capivara dos santos', 1, '567487458-67', 'edinaPittner@gmail.com', '(11)91256-7922');
 
 -- --------------------------------------------------------
 
