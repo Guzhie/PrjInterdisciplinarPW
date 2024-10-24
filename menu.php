@@ -26,7 +26,7 @@ if (!isset($_SESSION['usuario'])) {
             <li><a href="consult_alterar.php">Alterar</a></li>
             <li><a href="listar.php">Listar</a></li>
             <li><a href="consultar.php">Consultar</a></li>
-            <li><a href="excluir.php">Exclusão</a></li>
+            <li><a href="excluirProfessor.php">Exclusão</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>

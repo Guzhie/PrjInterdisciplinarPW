@@ -69,6 +69,8 @@ class Professor{
         $this->TelefoneProf = $telefoneprofessor;
     }
     
+
+    //cadastrar professor
     public function criar(){
         try {
             $this->conn = new Conectar();
@@ -88,6 +90,24 @@ class Professor{
             echo "Erro ao salvar registro: " . $exc->getMessage();
         }
     }
+
+    //excluir professor
+    public function excluir()
+    {
+        try {
+            $this->conn = new Conectar();
+            $sql = $this->conn->prepare("DELETE from professor where Id_Prof = ?");
+            @$sql->bindParam(1, $this->getIdProf(), PDO::PARAM_STR);
+            if ($sql->execute() == 1) {
+                return "Excluido com sucesso!";
+            } else {
+                return "Erro na exclusão!";
+            }
+        } catch (PDOException $exc) {
+            echo "Erro ao excluir. " . $exc->getMessage();
+        }
+    }
+
 }
 
 ?>
